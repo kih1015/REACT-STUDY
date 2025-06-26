@@ -1,8 +1,10 @@
 import React from "react";
-import "./ButtonA.css";
+import styles from "./ButtonA.module.css";
 
 function ButtonA() {
-  return <button className="button">Button A</button>;
+  console.log(styles);
+
+  return <button className={styles.button}>Button A</button>;
 }
 
 export default ButtonA;
