@@ -1,18 +1,25 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const element1 = <h2>Hello, world!</h2>;
+  const element2 = (
+    <ul>
+      <li>A</li>
+      <li>B</li>
+      <li>C</li>
+    </ul>
+  );
+
+  console.log(element1);
+  console.log(element2);
 
   return (
     <>
       {/* JSX Practices */}
-
       <h1>JSX</h1>
 
-      <br />
+      {element1}
+      {element2}
     </>
   );
 }
