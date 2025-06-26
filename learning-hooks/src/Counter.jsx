@@ -1,10 +1,10 @@
 import { useState } from "react";
 
+let countVar = 0;
+
 function Counter() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
-
-  let countVar = 0;
 
   const incrementVar = () => {
     countVar++;
