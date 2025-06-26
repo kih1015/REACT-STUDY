@@ -1,16 +1,26 @@
 import "./App.css";
 
 function App() {
+  const divStyle = {
+    backgroundColor: "lightblue",
+    margin: "12px",
+    padding: "20px",
+    borderRadius: "8px",
+  };
+
   return (
     <>
-      <span
+      <div style={divStyle}>DIV 1</div>
+
+      <div
         style={{
+          ...divStyle,
+          color: "darkblue",
           fontWeight: "bold",
-          fontStyle: "italic",
         }}
       >
-        Bold & Italic
-      </span>
+        DIV 2
+      </div>
     </>
   );
 }
