@@ -1,27 +1,26 @@
 import "./App.css";
 
-function App() {
-  const isLoggedIn = true;
-
-  return (
-    <>
-      {<h1>JSX</h1>}
-
-      {isLoggedIn ? <h1>Hello!</h1> : <h1>Sign in</h1>}
-
-      {isLoggedIn ? (
-        <>
-          <h2>Welcome back!</h2>
-          <p>You are logged in. Enjoy your time here!</p>
-        </>
-      ) : (
-        <>
-          <h2>Hello, Guest!</h2>
-          <p>Please log in to access more features.</p>
-        </>
-      )}
-    </>
+function getUserContent(userStatus) {
+  return userStatus === "admin" ? (
+    <div>
+      <h2>Admin Dashboard</h2>
+      <button>Manage Users</button>
+    </div>
+  ) : userStatus === "member" ? (
+    <section>
+      <h2>Member Home</h2>
+      <p>Welcome to the community!</p>
+    </section>
+  ) : (
+    <article>
+      <h2>Guest Access</h2>
+      <a href="/signup">Sign up here</a>
+    </article>
   );
+}
+
+function App() {
+  return <>{getUserContent("admin")}</>;
 }
 
 export default App;
