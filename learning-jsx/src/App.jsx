@@ -1,27 +1,16 @@
 import "./App.css";
 
 function App() {
-  const disableInput = true;
-
   return (
     <>
-      <label
-        htmlFor="username" // for
+      <span
+        style={{
+          fontWeight: "bold",
+          fontStyle: "italic",
+        }}
       >
-        Username:
-      </label>
-      <input
-        type="text"
-        id="username"
-        className="input-field" // class
-        autoComplete="off" // autocomplete
-        maxLength={20} // maxlength
-        spellCheck={true} // spellcheck
-        readOnly={false} // readonly
-        tabIndex={0} // tabindex
-        disabled={disableInput}
-        placeholder={disableInput ? "(DISABLED)" : "Enter your name."}
-      />
+        Bold & Italic
+      </span>
     </>
   );
 }
