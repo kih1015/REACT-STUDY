@@ -13,7 +13,6 @@ function App() {
       <InfoCard
         title="React Composition"
         content="Composition makes your components more reusable"
-        author="Charlie"
       />
     </>
   );
