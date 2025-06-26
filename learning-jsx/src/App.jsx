@@ -1,39 +1,27 @@
 import "./App.css";
 
-function FunctionExpressions() {
-  const getGreeting = (name) => `Hello, ${name}!`;
-
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString();
-  };
-
-  const calculateTotal = (items) => {
-    return items.reduce((sum, item) => sum + item.price, 0);
-  };
-
-  const items = [
-    { id: 1, price: 10 },
-    { id: 2, price: 20 },
-  ];
+function App() {
+  const isLoggedIn = true;
 
   return (
-    <div>
-      <p>{getGreeting("Alice")}</p>
-      <p>Today: {formatDate(new Date())}</p>
-      <p>Total: ${calculateTotal(items)}</p>
-      <p>
-        Good{" "}
-        {(() => {
-          const hours = new Date().getHours();
-          return hours < 12 ? "morning!" : "afternoon!";
-        })()}
-      </p>
-    </div>
-  );
-}
+    <>
+      {<h1>JSX</h1>}
 
-function App() {
-  return <FunctionExpressions />;
+      {isLoggedIn ? <h1>Hello!</h1> : <h1>Sign in</h1>}
+
+      {isLoggedIn ? (
+        <>
+          <h2>Welcome back!</h2>
+          <p>You are logged in. Enjoy your time here!</p>
+        </>
+      ) : (
+        <>
+          <h2>Hello, Guest!</h2>
+          <p>Please log in to access more features.</p>
+        </>
+      )}
+    </>
+  );
 }
 
 export default App;
