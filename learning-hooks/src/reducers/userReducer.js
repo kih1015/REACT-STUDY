@@ -16,7 +16,6 @@ export function userReducer(state, action) {
       if (age < 18) {
         return {
           ...state,
-          year: action.payload,
           warning: "Must be at least 18 yrs old!",
         };
       }
@@ -26,7 +25,17 @@ export function userReducer(state, action) {
         warning: "",
       };
     }
+    case "RESET":
+      return init(action.payload);
     default:
       throw new Error("Unknown action type");
   }
+}
+
+export function init(externalData) {
+  return {
+    ...initialState,
+    name: externalData.name,
+    year: externalData.year,
+  };
 }
