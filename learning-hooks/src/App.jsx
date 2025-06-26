@@ -1,13 +1,20 @@
 import "./App.css";
-import React, { useState } from "react";
+import { useRef } from "react";
 
-import Counter from "./Counter";
+const App = () => {
+  const inputRef = useRef(null);
 
-const App = () => (
-  <>
-    <Counter />
-    <Counter />
-  </>
-);
+  const handleFocus = () => {
+    console.log(inputRef.current);
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" placeholder="Type..." />
+      <button onClick={handleFocus}>Focus Input</button>
+    </div>
+  );
+};
 
 export default App;
