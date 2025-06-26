@@ -1,20 +1,26 @@
 import "./App.css";
-import { useRef } from "react";
+import ClassComp from "./ClassComp";
+import FuncComp from "./FuncComp";
+import { useState } from "react";
 
 const App = () => {
-  const inputRef = useRef(null);
-
-  const handleFocus = () => {
-    console.log(inputRef.current);
-    inputRef.current.focus();
-  };
+  const [selected, setSelected] = useState("");
 
   return (
-    <div>
-      <input ref={inputRef} type="text" placeholder="Type..." />
-      <button onClick={handleFocus}>Focus Input</button>
-    </div>
+    <>
+      {["", "ClassComp", "FuncComp"].map((option) => (
+        <label key={option}>
+          <input
+            type="radio"
+            value={option}
+            checked={selected === option}
+            onChange={(e) => setSelected(e.target.value)}
+          />
+          {option || "None"}
+        </label>
+      ))}
+      {selected && (selected === "ClassComp" ? <ClassComp /> : <FuncComp />)}
+    </>
   );
 };
-
 export default App;
