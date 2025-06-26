@@ -1,14 +1,14 @@
 import "./App.css";
-import useCounter from "./hooks/useCounter";
+import useWindowSize from "./hooks/useWindowSize";
 
 const App = () => {
-  const { count, increment, decrement } = useCounter(0);
+  const { width, height } = useWindowSize();
 
   return (
     <>
-      <h2>Counter: {count}</h2>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <h2>Window Size</h2>
+      <p>Width: {width}</p>
+      <p>Height: {height}</p>
     </>
   );
 };
