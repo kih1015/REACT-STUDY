@@ -5,4 +5,4 @@ function Child({ active }) {
   return <p>Child: {active ? "Active" : "Not active"}</p>;
 }
 
-export default Child;
+export default React.memo(Child);
