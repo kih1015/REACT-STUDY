@@ -2,24 +2,37 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 const App = () => {
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
-
-  const handleIncrease = (setter) => {
-    setter((prev) => prev + 1);
-  };
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(`C1: ${count1}, C2: ${count2}`);
-  }, [count1]);
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch("/data/books.json");
+        const data = await response.json();
+        setBooks(data);
+      } catch (error) {
+        console.error("Failed to fetch books:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
-      <h2>Count1: {count1}</h2>
-      <button onClick={() => handleIncrease(setCount1)}>Count1++</button>
-
-      <h2>Count2: {count2}</h2>
-      <button onClick={() => handleIncrease(setCount2)}>Count2++</button>
+      <h2>Book List</h2>
+      <ul>
+        {books.map((book) => (
+          <li key={book.id}>
+            <strong>{book.title}</strong> by {book.author}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
