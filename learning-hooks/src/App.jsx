@@ -1,21 +1,14 @@
 import "./App.css";
-import { useState } from "react";
-import Timer from "./Timer";
+import useCounter from "./hooks/useCounter";
 
 const App = () => {
-  const [showTimer, setShowTimer] = useState(false);
+  const { count, increment, decrement } = useCounter(0);
 
   return (
     <>
-      <label>
-        <input
-          type="checkbox"
-          checked={showTimer}
-          onChange={(e) => setShowTimer(e.target.checked)}
-        />
-        Show Timer
-      </label>
-      {showTimer && <Timer />}
+      <h2>Counter: {count}</h2>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
     </>
   );
 };
