@@ -3,32 +3,47 @@ import { useState } from "react";
 
 // 함수명을 영상의 'Form'에서 'App'으로 수정했습니다.
 function App() {
-  const [username, setUsername] = useState("");
-  const [isSubscribed, setSubscribed] = useState(false);
-  const [role, setRole] = useState("user");
+  const [formData, setFormData] = useState({
+    username: "",
+    isSubscribed: false,
+    role: "user",
+  });
   const roles = ["user", "admin", "guest"];
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
 
   return (
     <form>
       <p>
-        Name: {username}
-        {isSubscribed && " (Subscribed)"}
+        Name: {formData.username}
+        {formData.isSubscribed && " (Subscribed)"}
       </p>
-      <p>Role: {role}</p>
+      <p>Role: {formData.role}</p>
       <input
         type="text"
+        name="username"
         placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={formData.username}
+        onChange={handleChange}
       />
-      <input
-        type="checkbox"
-        checked={isSubscribed}
-        onChange={(e) => setSubscribed(e.target.checked)}
-      />
-      <label>Subscribe</label>
 
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
+      <label>
+        <input
+          type="checkbox"
+          name="isSubscribed"
+          checked={formData.isSubscribed}
+          onChange={handleChange}
+        />
+        Subscribe
+      </label>
+
+      <select name="role" value={formData.role} onChange={handleChange}>
         {roles.map((r) => (
           <option key={r} value={r}>
             {r}
