@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function App() {
   const [count1, setCount1] = useState(0);
@@ -14,12 +14,14 @@ function App() {
     return result;
   };
 
+  const calculatedValue = useMemo(() => heavyCalculation(count2), [count2]);
+
   return (
     <>
       <p>Counter 1: {count1}</p>
       <button onClick={() => setCount1(count1 + 1)}>+</button>
       <button onClick={() => setCount1(count1 - 1)}>-</button>
-      <p>Counter 2: {heavyCalculation(count2)}</p>
+      <p>Counter 2: {calculatedValue}</p>
       <button onClick={() => setCount2(count2 + 1)}>+</button>
       <button onClick={() => setCount2(count2 - 1)}>-</button>
     </>
