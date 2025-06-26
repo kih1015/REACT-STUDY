@@ -1,26 +1,32 @@
 import "./App.css";
 
 function App() {
-  const divStyle = {
-    backgroundColor: "lightblue",
-    margin: "12px",
-    padding: "20px",
-    borderRadius: "8px",
+  const styleA = {
+    color: "darkred",
+    fontWeight: "bold",
   };
+
+  const styleB = {
+    color: "navy",
+    textDecoration: "underline",
+  };
+
+  const isPrimary = true;
 
   return (
     <>
-      <div style={divStyle}>DIV 1</div>
+      <div style={isPrimary ? styleA : styleB}>
+        This text has dynamic styling.
+      </div>
 
-      <div
+      <span
         style={{
-          ...divStyle,
-          color: "darkblue",
-          fontWeight: "bold",
+          fontSize: isPrimary ? "1.5em" : "1em",
+          opacity: isPrimary ? 1 : 0.5,
         }}
       >
-        DIV 2
-      </div>
+        So does this text.
+      </span>
     </>
   );
 }
