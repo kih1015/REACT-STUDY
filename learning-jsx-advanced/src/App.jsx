@@ -1,24 +1,14 @@
 import "./App.css";
 
-import InfoCard from "./InfoCard";
+import ProductCard from "./ProductCard";
 
-const cardData1 = {
-  title: "Props in React",
-  content: "Props pass data from one component to another.",
-  author: "Alice",
-};
-const cardData2 = {
-  title: "React Composition",
-  content: "Composition makes your components more reusable",
-};
+const App = () => {
+  const product = {
+    name: "Laptop",
+    price: 123.4567,
+  };
 
-function App() {
-  return (
-    <>
-      <InfoCard {...cardData1} />
-      <InfoCard {...cardData2} />
-    </>
-  );
-}
+  return <ProductCard {...product} formatPrice={(p) => `$${p.toFixed(2)}`} />;
+};
 
 export default App;
