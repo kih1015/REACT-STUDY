@@ -1,27 +1,49 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import "./App.css";
+import { Routes, Route, useParams, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("Current Path:", location.pathname);
+  }, [location]);
+
+  return <h1>Home Page</h1>;
+}
+
+function User() {
+  const { id } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("Current Path:", location.pathname);
+    console.log("URL Parameter (id):", id);
+  }, [id, location]);
+
+  return <h1>User ID: {id}</h1>;
+}
+
+function Search() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const keyword = queryParams.get("keyword");
+
+  useEffect(() => {
+    console.log("Current Path:", location.pathname);
+    console.log("Query Parameter (keyword):", keyword);
+  }, [keyword, location]);
+
+  return <h1>Search Keyword: {keyword}</h1>;
+}
 
 function App() {
-  const navigate = useNavigate();
-
-  const navTo = (path) => {
-    navigate(path);
-  };
-
   return (
-    <>
-      <button onClick={() => navTo("/")}>Home</button>
-      <button onClick={() => navTo("/about")}>About</button>
-      <button onClick={() => navTo("/contact")}>Contact</button>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/user/:id" element={<User />} />
+      <Route path="/search" element={<Search />} />
+    </Routes>
   );
 }
 
