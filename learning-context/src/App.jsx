@@ -1,19 +1,23 @@
 import "./App.css";
-import { CountProvider } from "./contexts/CountContext";
-import { ToggleProvider } from "./contexts/ToggleContext";
-import Child1 from "./Child1";
-import Child3 from "./Child3";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
     <>
-      <h2>App</h2>
-      <CountProvider>
-        <Child1 />
-      </CountProvider>
-      <ToggleProvider>
-        <Child3 />
-      </ToggleProvider>
+      <nav>
+        <Link to={"/"}>Home</Link>
+        <Link to={"/about"}>About</Link>
+        <Link to={"/contact"}>Contact</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </>
   );
 }
