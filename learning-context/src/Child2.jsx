@@ -1,4 +1,9 @@
-function Child2({ count, setCount }) {
+import { useContext } from "react";
+import { CountContext } from "./contexts/CountContext";
+
+function Child2() {
+  const { count, setCount } = useContext(CountContext);
+
   return (
     <div>
       <h2>Child2</h2>

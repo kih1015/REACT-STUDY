@@ -1,15 +1,13 @@
 import "./App.css";
-import { useState } from "react";
+import { CountProvider } from "./contexts/CountContext";
 import Child1 from "./Child1";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
+    <CountProvider>
       <h2>App</h2>
-      <Child1 count={count} setCount={setCount} />
-    </div>
+      <Child1 />
+    </CountProvider>
   );
 }
 

@@ -1,10 +1,10 @@
 import Child2 from "./Child2";
 
-function Child1({ count, setCount }) {
+function Child1() {
   return (
     <div>
-      <h2>Child1</h2>
-      <Child2 count={count} setCount={setCount} />
+      <h2>Child</h2>
+      <Child2 />
     </div>
   );
 }
