@@ -9,10 +9,9 @@ function App() {
   return (
     <>
       <h2>Parent</h2>
-      <button onClick={() => setCount(count + 1)}>Increase</button>
-      <button onClick={() => setActive((a) => !a)}>Change Name</button>
+      <button onClick={() => setActive((a) => !a)}>Toggle Active</button>
       <p>Count: {count}</p>
-      <Child active={active} />
+      <Child active={active} onClick={() => setCount((c) => c + 1)} />
     </>
   );
 }

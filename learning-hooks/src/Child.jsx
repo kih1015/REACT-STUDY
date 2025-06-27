@@ -1,8 +1,14 @@
 import React from "react";
 
-function Child({ active }) {
+function Child({ active, onClick }) {
   console.log("Child rendered");
-  return <p>Child: {active ? "Active" : "Not active"}</p>;
+
+  return (
+    <div>
+      <p>Child: {active ? "Active" : "Not active"}</p>
+      <button onClick={onClick}>Increase</button>
+    </div>
+  );
 }
 
 export default React.memo(Child);
