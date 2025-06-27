@@ -1,32 +1,27 @@
 import "./App.css";
-import { useState, useTransition } from "react";
+import { useActionState } from "react";
 import { rollDice } from "./asynctasks";
 
 const App = () => {
-  const [dice, setDice] = useState(null);
-  const [error, setError] = useState(null);
-  const [isPending, startTransition] = useTransition();
-
-  const handleRoll = () => {
-    setError(null);
-    startTransition(async () => {
-      try {
-        const result = await rollDice();
-        setDice(result);
-      } catch (err) {
-        setError(err.message);
-      }
-    });
-  };
+  const [dice, submitAction, isPending] = useActionState(async () => {
+    try {
+      const result = await rollDice();
+      return result;
+    } catch (e) {
+      return e;
+    }
+  }, 7);
 
   return (
-    <div>
-      <button onClick={handleRoll} disabled={isPending}>
+    <form action={submitAction}>
+      <button type="submit" disabled={isPending}>
         {isPending ? "Rolling..." : "Roll Dice"}
       </button>
-      {error && <p>Error: {error}</p>}
-      {!error && !isPending && dice && <p>Dice result: {dice}</p>}
-    </div>
+      {dice instanceof Error && <p>Error: {dice.message}</p>}
+      {!(dice instanceof Error) && !isPending && dice && (
+        <p>Dice result: {dice}</p>
+      )}
+    </form>
   );
 };
 
