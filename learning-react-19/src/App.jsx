@@ -1,26 +1,26 @@
 import "./App.css";
-import { useActionState } from "react";
-import { rollDice } from "./asynctasks";
+import { useState, useOptimistic } from "react";
+import { updateName } from "./asynctasks";
 
 const App = () => {
-  const [dice, submitAction, isPending] = useActionState(async () => {
-    try {
-      const result = await rollDice();
-      return result;
-    } catch (e) {
-      return e;
-    }
-  }, 7);
+  const [name, setName] = useState("(Empty)");
+  const [optName, setOptName] = useOptimistic(name);
+
+  const submitAction = async (formData) => {
+    const newName = formData.get("name");
+    setOptName(`⏳ ${newName}`);
+    const updatedName = await updateName(newName);
+    setName(updatedName);
+  };
 
   return (
     <form action={submitAction}>
-      <button type="submit" disabled={isPending}>
-        {isPending ? "Rolling..." : "Roll Dice"}
-      </button>
-      {dice instanceof Error && <p>Error: {dice.message}</p>}
-      {!(dice instanceof Error) && !isPending && dice && (
-        <p>Dice result: {dice}</p>
-      )}
+      <p>Your name is: {optName}</p>
+      <p>
+        <label>Change Name:</label>
+        <input type="text" name="name" />
+        <button type="submit">Update</button>
+      </p>
     </form>
   );
 };
