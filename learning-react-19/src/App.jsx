@@ -1,23 +1,22 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { rollDice } from "./asynctasks";
 
 const App = () => {
   const [dice, setDice] = useState(null);
-  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
 
-  const handleRoll = async () => {
-    setIsPending(true);
+  const handleRoll = () => {
     setError(null);
-    try {
-      const result = await rollDice();
-      setDice(result);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsPending(false);
-    }
+    startTransition(async () => {
+      try {
+        const result = await rollDice();
+        setDice(result);
+      } catch (err) {
+        setError(err.message);
+      }
+    });
   };
 
   return (
