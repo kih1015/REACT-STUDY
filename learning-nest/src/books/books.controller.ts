@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -24,7 +25,7 @@ export class BooksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.findOne(id);
   }
 
@@ -34,17 +35,17 @@ export class BooksController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateBookDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateBookDto) {
     return this.booksService.update(id, dto);
   }
 
   @Patch(':id')
-  patch(@Param('id') id: string, @Body() dto: UpdateBookDto) {
-    return this.booksService.update(id, dto); // 부분 업데이트
+  patch(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateBookDto) {
+    return this.booksService.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.remove(id);
   }
 }

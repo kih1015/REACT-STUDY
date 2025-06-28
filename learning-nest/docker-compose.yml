@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.4
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret # 루트 비밀번호
+      MYSQL_DATABASE: bookstore # 기본으로 만들어질 DB
+    ports:
+      - '3306:3306' # 호스트:컨테이너
+    volumes:
+      - dbdata:/var/lib/mysql # 데이터 영구 보존
+volumes:
+  dbdata:
