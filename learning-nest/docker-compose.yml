@@ -1,14 +1,38 @@
 version: '3.9'
+
 services:
+  # ────────────────────────── MySQL ──────────────────────────
   db:
     image: mysql:8.4
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secret # 루트 비밀번호
-      MYSQL_DATABASE: bookstore # 기본으로 만들어질 DB
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: bookstore
     ports:
-      - '3306:3306' # 호스트:컨테이너
+      - '3306:3306'
     volumes:
-      - dbdata:/var/lib/mysql # 데이터 영구 보존
+      - dbdata:/var/lib/mysql
+    healthcheck: # WAS가 DB 준비될 때까지 대기
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 5s
+      retries: 5
+
+  # ────────────────────────── NestJS WAS ──────────────────────────
+  app:
+    build: # 루트에 Dockerfile 두고 직접 빌드
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-app
+    env_file: .env # DB 접속 정보 등
+    ports:
+      - '3000:3000' # 호스트:컨테이너
+    depends_on:
+      db:
+        condition: service_healthy # DB 헬스체크 통과 후 기동
+    command: node dist/main # dev 모드면 start:dev
+    # 개발 중 실시간 코드 반영이 필요하면 아래 주석 해제
+    # volumes:
+    #   - .:/usr/src/app
+    #   - /usr/src/app/node_modules
 volumes:
   dbdata:
